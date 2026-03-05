@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            margin: 0 ;
+            padding : 0;
+            box-sizing: border-box;
+        }
+        .main-container{
+            height: 100vh;
+            width: 100%;
+            background-color: rgb(218, 204, 204);
+             justify-content: center;   /* center horizontally */
+            align-items: center;       /* center vertically */
+            display: flex;
+        }
+        .outer-layer{
+            width: 200px;
+            height: 400px;
+            background: rgb(79, 66, 66);
+            justify-content: space-around;   /* center horizontally */
+            align-items: center;       /* center vertically */
+            display: flex;
+
+            flex-direction: column;
+            border-radius: 15px;
+            
+        }
+        .inner-layer >div{      /*instead of .inner-layer .red, .yellow, .green{} */
+            width:100px;
+            height: 100px;
+            border-radius: 50%;
+            border: none;
+            box-shadow: inset 0px 25px 20px rgba(0,0,0,1);   
+            /* inset means inner the element  
+            0px -> horizontal means left or right is 0,
+            25px -> it is veritcle direction means top and bottom
+            20 px -> for blur the shadow
+            in rgba (1) -> goes to transparency which is almost none. */
+            
+        }
+        .red{
+            background-color: red;
+        }
+        .yellow{
+            background: yellow;
+        }
+        .green{
+            background: green;
+        }
+        /* to add dim effect before active lights */
+        .red, .yellow, .green {
+            opacity: 0.3;
+            transition: opacity 0.3s ease;
+        }
+        .active {
+           opacity: 1;
+           box-shadow: 0 0 30px currentColor;
+        }
+        
+    </style>
+
+</head>
+<body>
+    <div class="main-container">
+        <div class="outer-layer">
+            <div class="inner-layer">
+                <div class="red" id="red"></div>
+            </div>
+            <div class="inner-layer">
+                <div class="yellow" id="yellow"></div>
+            </div>
+            <div class="inner-layer">
+                <div class="green" id="green"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       const red = document.getElementById("red");
+const yellow = document.getElementById("yellow");
+const green = document.getElementById("green");
+
+function turnOffLights() {
+    red.classList.remove("active");
+    yellow.classList.remove("active");
+    green.classList.remove("active");
+}
+
+function trafficLight() {
+
+    // GREEN ON
+    turnOffLights();
+    green.classList.add("active");
+
+    setTimeout(() => {
+        // YELLOW ON
+        turnOffLights();
+        yellow.classList.add("active");
+
+        setTimeout(() => {
+            // RED ON
+            turnOffLights();
+            red.classList.add("active");
+
+        }, 1000); // yellow duration
+
+    }, 3000); // green duration
+}
+
+// Repeat every 7 seconds (3 + 1 + 3)
+setInterval(trafficLight, 7000);
+
+// Start immediately
+trafficLight(); 
+
+ 
+
+
+
+    // //   1. selecting elements from html  
+    // const red = document.getElementById("red");
+    // const yellow = document.getElementById("yellow");
+    // const green = document.getElementById("green");
+    // // document -> represent my whole html page.
+    // // getElementById("red") -> finds elements with id = "red".
+    // // it stores that element inside a variable.
+
+    // // 2. function to turn off all lights.
+    // function turnOffLights(){
+    //     red.classList.remove("active");
+    //     yellow.classList.remove("active");
+    //     green.classList.remove("active");
+    // }
+    // // classList -> every html elements has a list of classes. eg. <div class= "red active"></div>
+    // // classList -> add class -> classList.add() / remove class -> classList.remove() / toggle class-> classList.toggle()
+    // // why remove "active"?  -> cause only one light should glow at a time. so before turning one ON . we turn all OFF first.
+    
+    // // 3. main function : trafficLight()
+    // function trafficLight(){
+    //     // green ON
+    //     turnOFFLights();
+    //     green.classList.add("active");
+        
+    //     setTimeOut(()=>{
+    //         //Yellow ON
+    //         turnOFFLights();
+    //         yellow.classList.add("active");
+
+    //         setTimeout(()=>{
+    //             //red ON
+    //             trunOffLights();
+    //             red.classList.add("active");
+    //         },1000);  // yellow duration
+    //     },3000);     // green duration
+    // }
+
+    // // repeat every 7 seconds (3+1+3)
+    // setInterval(trafficLight, 7000);
+
+    // // start immediately
+    // trafficLight();
+
+
+    </script>
+</body>
+</html>
